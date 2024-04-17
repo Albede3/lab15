@@ -100,8 +100,7 @@
     <hr>
     <section>
       <p>Know what might be neato? I think it needs MOAR ... 🔔</p>
-      <h2>Part 1: Sharasaurus - <a target="_blank" rel="noopener noreferrer"
-          href="https://en.wiktionary.org/wiki/persistence">persistence
+      <h2>Part 1: Sharasaurus - <a target="_blank" rel="noopener noreferrer" href="https://en.wiktionary.org/wiki/persistence">persistence
           /pəˈsɪst(ə)ns/</a></h2>
       <p>How couuld we view the same list on our phone as we are viewing on our laptop? Share the list with a friend?
       </p>
@@ -163,14 +162,19 @@
       // TODO redirect to a sharable link by completing the steps below
 
       // 1. get the current state from localStorage
+      let items = JSON.stringify(...JSON.parse(localStorage.getItem('items')));
 
       // 2. create a URLSearchParams object from the data you retrieved from localStorage
+      let params = new URLSearchParams(items);
 
       // 3. get the current url from window.location
+      let cUrl = window.location.href;
 
       // 4. set the current url's search property to '?' concatenated with: the urlsearchparams object's tostring 
+      params = cUrl.search() + params;
 
       // 5. update the window.location to the result of the preceding step
+      window.location.href = params.toString();
     })
 
     function populateLocalStorageFromURLSeach() {
