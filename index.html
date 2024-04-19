@@ -162,19 +162,23 @@
       // TODO redirect to a sharable link by completing the steps below
 
       // 1. get the current state from localStorage
-      let items = JSON.stringify(...JSON.parse(localStorage.getItem('items')));
+      let items = JSON.parse(localStorage.getItem('items'));
+      console.log(items);
 
       // 2. create a URLSearchParams object from the data you retrieved from localStorage
-      let params = new URLSearchParams(items);
+      let params = new URLSearchParams();
+      let count = 1
+      for (let thing of items) {
+        params.append(thing, count);
+        count++;
+      }
 
+      // url.search = params;
       // 3. get the current url from window.location
-      let cUrl = window.location.href;
-
+      let url = window.location;
       // 4. set the current url's search property to '?' concatenated with: the urlsearchparams object's tostring 
-      params = cUrl.search() + params;
-
       // 5. update the window.location to the result of the preceding step
-      window.location.href = params.toString();
+      url.search = params;
     })
 
     function populateLocalStorageFromURLSeach() {
@@ -182,6 +186,19 @@
       // TODO update from URL by completing the steps below:
       // 1. when the page loads, look to see if the url has a querystring that has the kind of data you added to it above
       // 2. if there is such data in the querystring, replace the state in localStorage with the data in the URL
+      // let items = localStorage.getElementById("items");
+      let thing = window.location.search;
+      let newThing = "";
+      let count = 0;
+      while (thing != "" && thing != "?") {
+        if (thing.charAt(0) != "=") {
+          newThing += thing.charAt(0);
+          localStorage.setItem('items', JSON.stringify([...JSON.parse(localStorage.getItem('items') ?? '[]'), input.value]))
+        }
+        thing.charAt(0) = "";
+        console.log(newThing);
+        debugger
+      }
     }
 
     // initialize the page
